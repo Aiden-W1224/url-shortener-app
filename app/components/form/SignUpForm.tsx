@@ -8,12 +8,17 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const formSchema = z.object({
     username: z.string().min(1, "Username is required").max(50),
     email: z.string().min(1, "Email is required").email("Invalid email"),
     password: z.string().min(1, "Password is required").min(8, "Password must be at least 8 characters long"),
-    confirmPassword: z.string().min(1, "Password confirmation is required")
+    confirmPassword: z.string().min(1, "Password confirmation is required"),
+    admin: z.boolean()
 })
 .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -28,11 +33,16 @@ const SignUpForm = () => {
             username: "",
             email: "",
             password: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            admin: false
         }
       });
-
+    const [isChecked, setIsChecked] = useState(false);
+    const adminClicked = () => {
+        setIsChecked(!isChecked);
+    }
     const onSubmit = async (values:z.infer<typeof formSchema>) => {
+        const adminValue = isChecked ? true : values.admin;
         const response = await fetch("/api/user", {
             method: "POST",
             headers: {
@@ -41,7 +51,8 @@ const SignUpForm = () => {
             body: JSON.stringify({
                 username: values.username,
                 email: values.email,
-                password: values.password
+                password: values.password,
+                admin: adminValue
             })
         })
 
@@ -92,7 +103,7 @@ const SignUpForm = () => {
                     </FormItem>
                 )}
                 />
-                 <FormField
+                <FormField
                     control={form.control}
                     name="confirmPassword"
                     render={({ field }) => (
@@ -104,6 +115,11 @@ const SignUpForm = () => {
                     </FormItem>
                 )}
                 />
+                <Checkbox id="terms" onClick={adminClicked}/>
+                <label htmlFor="terms" className="ml-4">
+                    Sign up as an admin
+                </label>
+                <p>Checkbox is {isChecked ? 'checked' : 'unchecked'}</p>
                 <Button className="w-full" type="submit">Sign Up</Button>
             </form>
             <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
@@ -111,7 +127,7 @@ const SignUpForm = () => {
             </div>
             <p className="text-center text-sm text-gray-600 mt-2">
                 If you already have an account, please&nbsp;
-                <Link className="text-blue-500"href='sign-in'>Sign in</Link>
+                <Link className="text-blue-500" href='sign-in'>Sign in</Link>
             </p>
         </Form>
       )

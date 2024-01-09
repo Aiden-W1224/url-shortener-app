@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import {PrismaAdapter} from "@next-auth/prisma-adapter"
 import { db } from "./db";
 import { compare } from "bcrypt";
+import { User } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(db),
@@ -25,7 +26,7 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
                 const existingUser = await db.user.findUnique({
-                    where: {email: credentials?.email}
+                    where: { email: credentials?.email }
                 });
                 if(!existingUser) {
                     return null;
@@ -36,18 +37,20 @@ export const authOptions: NextAuthOptions = {
                 }
                 return {
                     id: `${existingUser.id}`,
-                    username: existingUser.username,
-                    email: existingUser.email
+                    username: existingUser.username || "",
+                    email: existingUser.email,
+                    admin: existingUser.admin
                 }
             }
         })
       ],
       callbacks: {
         async jwt({token, user}) {
-            if(user) {
+            if (user && 'admin' in user) {
                 return {
                     ...token,
-                    username: user.username
+                    username: user.username,
+                    admin: user.admin || false,
                 }
             }
             return token;
@@ -57,7 +60,8 @@ export const authOptions: NextAuthOptions = {
                 ...session,
                 user: {
                     ...session.user,
-                    username: token.username
+                    username: token.username,
+                    admin: token.admin
                 }
             }
         },

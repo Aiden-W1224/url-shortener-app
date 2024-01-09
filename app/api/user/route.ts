@@ -8,12 +8,13 @@ const userSchema = z.object({
     username: z.string().min(1, "Username is required").max(50),
     email: z.string().min(1, "Email is required").email("Invalid email"),
     password: z.string().min(1, "Password is required").min(8, "Password must be at least 8 characters long"),
+    admin: z.boolean()
 });
 
 export async function POST(req: Request) {
     try{
         const body = await req.json();
-        const {email, username, password} = userSchema.parse(body);
+        const {email, username, password, admin} = userSchema.parse(body);
 
         //Handling for non-unique emails
         const emailExists = await db.user.findUnique({
@@ -39,7 +40,8 @@ export async function POST(req: Request) {
             data: {
                 username,
                 email,
-                password: hashedPassword
+                password: hashedPassword,
+                admin
             }
         });
 

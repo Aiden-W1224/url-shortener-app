@@ -29,8 +29,9 @@ model Url {
 }
 
 model Analytics {
-  id      String @id @default(uuid())
-  url     Url    @relation(fields: [url_id], references: [id])
-  url_id  String @unique
-  clicked Int
+  id        String   @id @default(uuid())
+  url       Url      @relation(fields: [url_id], references: [id])
+  url_id    String   @unique
+  clicked   Int
+  createdAt DateTime @default(now())
 }
