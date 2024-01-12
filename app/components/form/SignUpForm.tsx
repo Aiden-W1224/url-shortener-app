@@ -116,10 +116,9 @@ const SignUpForm = () => {
                 )}
                 />
                 <Checkbox id="terms" onClick={adminClicked}/>
-                <label htmlFor="terms" className="ml-4">
+                <label htmlFor="terms" className="ml-4" style={{ fontSize: 'smaller' }}>
                     Sign up as an admin
                 </label>
-                <p>Checkbox is {isChecked ? 'checked' : 'unchecked'}</p>
                 <Button className="w-full" type="submit">Sign Up</Button>
             </form>
             <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">

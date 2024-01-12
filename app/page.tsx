@@ -1,13 +1,13 @@
-import Image from 'next/image'
-import Navbar from './components/Navbar'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div>
-      <h1 className='text-4xl'>Home</h1>
-      <Link className={buttonVariants()} href="/admin">Open My Admin</Link>
+    <div className="flex items-center justify-center h-screen">
+      <Link className={buttonVariants()} href="/admin">Shorten a url</Link>
+      <Link className="pl-4"href="/documentation">
+        <Button className={buttonVariants()}>Documentation</Button>
+      </Link>
     </div>
     
   )

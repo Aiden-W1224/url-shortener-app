@@ -35,3 +35,4 @@ model Analytics {
   clicked   Int
   createdAt DateTime @default(now())
 }
+

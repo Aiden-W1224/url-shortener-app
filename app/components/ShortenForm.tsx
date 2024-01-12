@@ -3,10 +3,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-async function createUrl(url: string) {
+export async function createUrl(url: string) {
   const res = await fetch("http://localhost:3000/api/generate", {
     method: "POST",
     body: JSON.stringify({ url }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   console.log(res);
   if (!res.ok) {
@@ -66,7 +69,7 @@ export default function ShortenForm() {
 
       <input
         type="submit"
-        className="bg-sky-700 font-bold text-white p-4 rounded-r-lg cursor-pointer"
+        className="bg-blue-700 font-bold text-white p-4 rounded-r-lg cursor-pointer"
         value="Shorten URL"
       />
     </form>

@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  title: URL Shortener API
+  description: API for generating short URLs
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /api/generate:
+    post:
+      summary: Create a short URL
+      description: |
+        Generates a short URL for the provided long URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The long URL to be shortened.
+                  example: "https://www.google.com"
+      responses:
+        '200':
+          description: Short URL generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  urlCode:
+                    type: string
+                    description: The code representing the generated short URL.
+                    example: "abc123"
+        '400':
+          description: Bad Request - Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message describing the reason for the bad request.
+                    example: "Invalid input data"
+        '500':
+          description: Internal Server Error - Failed to fetch data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message indicating a failure to fetch data.
+                    example: "Failed to fetch data!"

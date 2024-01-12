@@ -1,5 +1,4 @@
 import { db, shortLink } from '@/lib/index';
-import { Prisma } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { isWebUri } from 'valid-url';
 
@@ -21,7 +20,7 @@ export default async function handler(
     });
   }
 
-  const {url}: RequestData = JSON.parse(req.body);
+  const {url}: RequestData = JSON.parse(JSON.stringify(req.body));
   const host = req.headers.host;
   const{shortCode, shortUrl} = shortLink(host!);
 

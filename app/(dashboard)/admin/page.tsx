@@ -10,16 +10,14 @@ const page = async () => {
     console.log(session);
     console.log("end")
     if(session?.user && 'admin' in session.user) {
-        const isAdmin = session?.user.admin || false;
         return (
             <>
                 <h2>Landing page - welcome back {session?.user.username}</h2>
                 <ShortenForm />
-                {isAdmin && <Button>View Analytics</Button>}
             </>
     )};
     return (
-        <h2>Login to see this admin page</h2>
+        <h2 className="flex items-center justify-center h-screen">Login to see this admin page</h2>
     )
 };
 

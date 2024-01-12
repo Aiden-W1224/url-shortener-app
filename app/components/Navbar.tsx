@@ -12,9 +12,8 @@ const Navbar = async () => {
 
     return(
         <div className="bg-zinc-100 text-black py-2 border-b border-s-zinc-100 fixed w-full top-0">
-            <div className="flex items-center justify-between pl-4 pr-4">
-                <Link href="/">Url Shortener App</Link>
-                {/* shadcn button styling */}
+            <div className="flex items-center justify-between pr-4 pl-2">
+                <Link href="/"><Button className={buttonVariants()}>Url Shortener App</Button></Link>
                 {session?.user ? (<UserAccountNav/>) : (<Link className={buttonVariants()} href="/sign-in">Sign in</Link>)}
             </div>
         </div>
