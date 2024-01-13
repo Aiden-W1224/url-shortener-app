@@ -39,6 +39,7 @@ const SignInForm = () => {
 
             if (signInData?.error) {
                 console.error(signInData.error);
+                window.alert("Sign-in failed. Please check your email and password.");
             } else {
                 console.log("Authentication successful");
                 router.refresh();

@@ -12,7 +12,7 @@ const page = async () => {
     if(session?.user && 'admin' in session.user) {
         return (
             <>
-                <h2>Landing page - welcome back {session?.user.username}</h2>
+                <h2>Welcome to my URL shortener: {session?.user.username}!</h2>
                 <ShortenForm />
             </>
     )};
