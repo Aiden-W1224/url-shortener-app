@@ -17,7 +17,7 @@ const page = async () => {
             </>
     )};
     return (
-        <h2 className="flex items-center justify-center h-screen">Login to see this admin page</h2>
+        <h2 className="flex items-center justify-center h-screen">Login to shorten a url!</h2>
     )
 };
 

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ const formSchema = z.object({
 });
 
 const SignInForm = () => {
+    //nextjs hook for navigation
     const router = useRouter();
     //z.infer to auto define the type from formSchema 
     const form = useForm<z.infer<typeof formSchema>>({

@@ -1,4 +1,5 @@
-import { db, shortLink } from '@/lib/index';
+import { db } from '@/lib/db';
+import shortLink from '@/lib/shortLink';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { isWebUri } from 'valid-url';
 
@@ -35,7 +36,7 @@ export default async function handler(
   }
 
   const result = await db.$transaction(async (tx) => {
-    // # query if there is an existing original url
+    //query if there is an existing original url
     const originalUrl = await tx.url.findFirst({
       where: {
         longUrl: url,
@@ -44,7 +45,7 @@ export default async function handler(
 
     if (originalUrl) return originalUrl;
 
-    // # create a new url
+    //create a new url
     const newUrl = await tx.url.create({
       data: {
         longUrl: url,
@@ -53,7 +54,7 @@ export default async function handler(
       },
     });
 
-    // # create new analytic
+    //create new analytic
     await tx.analytics.create({
       data: {
         clicked: 0,
@@ -67,6 +68,7 @@ export default async function handler(
 
     return newUrl;
   });
+  
   return res.status(200).json({
     statusCode: 200,
     error: null,

@@ -1,5 +1,6 @@
+import { db } from "@/lib/db";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { db } from "@/lib/index";
+
 
 export default async function handler(
     req: NextApiRequest,

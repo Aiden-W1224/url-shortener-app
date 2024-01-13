@@ -94,20 +94,14 @@ const Documentation = () => {
 
             <p className="font-bold">
                 In summary, the database schema consists of three tables: User, Url, and Analytics. Each table has specific 
-                columns, and there is a one-to-many relationship between the Url and Analytics tables. The User table is independent 
-                and not directly related to the other tables in the provided schema.
+                columns, and there is a one-to-many relationship between the Url and Analytics tables. 
             </p>
             <div>
                 <h3 className="font-bold">Set Up Instructions</h3>
                 <div className="ml-8">
-                    <p className="font-bold">Columns:</p>
-                    <ul className="list-disc ml-8">
-                    <li>id: Integer, Primary Key, Auto-incremented.</li>
-                    <li>email: String, Unique.</li>
-                    <li>username: String, Unique (nullable).</li>
-                    <li>password: String.</li>
-                    <li>admin: Boolean, Default value set to false.</li>
-                    </ul>
+                    <li>git clone https://github.com/Aiden-W1224/url-shortener-app.git</li>
+                    <li>cd into the directory the project is cloned in</li>
+                    <li>npm install && npm run dev</li>
                 </div>
             </div>
         </div>

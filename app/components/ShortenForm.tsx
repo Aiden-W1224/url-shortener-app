@@ -28,11 +28,13 @@ export default function ShortenForm() {
     e.preventDefault();
 
     if (inputUrl) {
-      // # create short url
-      const { data, statusCode, error } = await createUrl(inputUrl);
+      const processedUrl = inputUrl.startsWith('http') ? inputUrl : `https://${inputUrl}`;
+
+      //create short url
+      const { data, statusCode, error } = await createUrl(processedUrl);
 
       if (statusCode == 200) {
-        // # redirect user to success page with the code
+        //redirect user to success page with the code
         router.push(`/success?code=${data.urlCode}`);
         setError(null);
       } else {

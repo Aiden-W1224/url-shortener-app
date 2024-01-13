@@ -1,5 +1,5 @@
+import { db } from "@/lib/db";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { db } from "@/lib/index";
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,17 +17,17 @@ export default async function handler(
 
   if (typeof code == "string") {
     const result = await db.$transaction(async (tx) => {
-      // user makes a get request on their short url -> if their code is invalid or not found
+      //user makes a get request on their short url -> if their code is invalid or not found
       const url = await tx.url.findUnique({
         where: {
           urlCode: code,
         },
       });
 
-      // # return null
+      //return null
       if (!url) return null;
 
-      // # update our url analytic
+      //url analytic
       await tx.analytics.update({
         where: {
           url_id: url.id,
@@ -39,7 +39,7 @@ export default async function handler(
         },
       });
 
-      // only if an url code is valid and is found in our database
+      //only if a url code is valid and is found in our database
       return url;
     });
 
@@ -53,7 +53,7 @@ export default async function handler(
       });
     }
 
-    // # redirect url
+    //redirect url
     return res.redirect(result.longUrl);
   }
 }

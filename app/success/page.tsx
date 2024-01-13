@@ -1,9 +1,9 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { db } from "@/lib";
-import { isMobile, isWindows, isMacOs } from 'react-device-detect';
+import React from "react";
+import { isMobile } from 'react-device-detect';
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import { db } from "@/lib/db";
 
 type SuccessPageProps = {
   searchParams: {
